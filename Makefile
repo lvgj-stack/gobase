@@ -6,13 +6,14 @@ all: tidy format build
 
 ROOT_PACKAGE=github.com/Mr-LvGJ/gobase
 
-include scripts/make-rules/common.mk
+include scripts/make-rules/common.mk # make sure include common.mk at the first include line
+include scripts/make-rules/golang.mk
 include scripts/make-rules/tools.mk
 
 
 .PHONY: tidy
 tidy:
-	@(GO) mod tidy
+	@$(GO) mod tidy
 
 .PHONY: format
 format: tools.verify.golines tools.verify.goimports

@@ -51,9 +51,21 @@ func InitLog(logPath, errPath string, logLevel zapcore.Level) error {
 	warnWriter := getWriter(errPath)
 	// 实现多个输出
 	core := zapcore.NewTee(
-		zapcore.NewCore(zapcore.NewJSONEncoder(config), zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout)), logLevel), //同时将日志输出到控制台，NewJSONEncoder 是结构化输出
-		zapcore.NewCore(zapcore.NewJSONEncoder(config), zapcore.AddSync(infoWriter), infoLevel),                            //将info及以下写入logPath，NewConsoleEncoder 是非结构化输出
-		zapcore.NewCore(zapcore.NewJSONEncoder(config), zapcore.AddSync(warnWriter), warnLevel),                            //warn及以上写入errPath
+		zapcore.NewCore(
+			zapcore.NewJSONEncoder(config),
+			zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout)),
+			logLevel,
+		), //同时将日志输出到控制台，NewJSONEncoder 是结构化输出
+		zapcore.NewCore(
+			zapcore.NewJSONEncoder(config),
+			zapcore.AddSync(infoWriter),
+			infoLevel,
+		), //将info及以下写入logPath，NewConsoleEncoder 是非结构化输出
+		zapcore.NewCore(
+			zapcore.NewJSONEncoder(config),
+			zapcore.AddSync(warnWriter),
+			warnLevel,
+		), //warn及以上写入errPath
 	)
 	logger = zap.New(core, zap.AddCaller(), zap.AddStacktrace(zap.WarnLevel))
 	sugarLogger = logger.Sugar()

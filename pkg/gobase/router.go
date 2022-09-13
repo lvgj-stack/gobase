@@ -1,12 +1,13 @@
 package gobase
 
 import (
+	"github.com/gin-contrib/pprof"
+	"github.com/gin-gonic/gin"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/user"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
-	"github.com/gin-contrib/pprof"
-	"github.com/gin-gonic/gin"
 )
 
 func LoadRouter(g *gin.Engine) {

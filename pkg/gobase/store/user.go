@@ -3,9 +3,10 @@ package store
 import (
 	"context"
 	"errors"
-	
-	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
+
 	"gorm.io/gorm"
+
+	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
 )
 
 type users struct {
