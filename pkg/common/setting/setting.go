@@ -2,12 +2,13 @@ package setting
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
 	"os"
 	"strings"
 	"sync/atomic"
 	"time"
 	"unsafe"
+
+	"github.com/spf13/viper"
 )
 
 var gConfig = unsafe.Pointer(&Config{})

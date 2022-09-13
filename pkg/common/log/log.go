@@ -1,12 +1,13 @@
 package log
 
 import (
-	"github.com/natefinch/lumberjack"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"io"
 	"os"
 	"time"
+
+	"github.com/natefinch/lumberjack"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 //只能输出结构化日志，但是性能要高于 SugaredLogger

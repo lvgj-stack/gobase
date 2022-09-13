@@ -4,16 +4,17 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
-	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
-	"github.com/Mr-LvGJ/gobase/pkg/gobase"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
 	"time"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
+	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
+	"github.com/Mr-LvGJ/gobase/pkg/gobase"
+	"github.com/gin-gonic/gin"
 )
 
 func Run() error {
