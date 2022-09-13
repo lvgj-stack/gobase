@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
+	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"net/http"
 	"os"
 	"os/signal"
@@ -17,17 +17,17 @@ import (
 )
 
 func Run() error {
-	gin.SetMode(viper.GetString("runmode"))
+	gin.SetMode(setting.C().RunMode)
 	g := gin.New()
 
 	gobase.LoadRouter(g)
 
 	insecureServer := &http.Server{
-		Addr:    viper.GetString("addr"),
+		Addr:    setting.C().Addr,
 		Handler: g,
 	}
 	go func() {
-		log.Info("Start to listening the incoming request on http address: %s", "addr", viper.GetString("addr"))
+		log.Info("Start to listening the incoming request on http address: %s", "addr", setting.C().Addr)
 		go func() {
 			if err := insecureServer.ListenAndServe(); err != nil && errors.Is(err, http.ErrServerClosed) {
 				log.Error("Listen: %s\n", "err", err)
@@ -58,10 +58,10 @@ func Run() error {
 }
 
 func pingServer(ctx context.Context) error {
-	url := fmt.Sprintf("http://%s/healthz", viper.GetString("addr"))
-	bind := strings.Split(viper.GetString("addr"), ":")[0]
+	url := fmt.Sprintf("http://%s/healthz", setting.C().Addr)
+	bind := strings.Split(setting.C().Addr, ":")[0]
 	if bind == "" || bind == "0.0.0.0" {
-		url = fmt.Sprintf("http://127.0.0.1:%s/healthz", strings.Split(viper.GetString("addr"), ":")[1])
+		url = fmt.Sprintf("http://127.0.0.1:%s/healthz", strings.Split(setting.C().Addr, ":")[1])
 	}
 	for {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)

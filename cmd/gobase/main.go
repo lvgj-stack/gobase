@@ -5,7 +5,7 @@ import (
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
-	"github.com/spf13/viper"
+	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
 	"net/http"
 )
 
@@ -26,6 +26,9 @@ func main() {
 		}()
 	}
 	setting.InitConfig(*configPath)
+	if _, err := store.Setup(); err != nil {
+		log.Error("database init fail", "err", err)
+	}
 	bootstrap.Run()
-	log.Info("get addr", "addr", viper.Get("addr"))
+	log.Info("get addr", "addr", setting.C().Addr)
 }
