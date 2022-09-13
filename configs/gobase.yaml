@@ -1,0 +1,2 @@
+runmode: debug
+addr: :8080                  # HTTP绑定端口
