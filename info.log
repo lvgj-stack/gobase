@@ -1,6 +1,0 @@
-{"level":"INFO","ts":"2022-09-13 16:24:31","file":"log/log.go:64","msg":"get addr","addr":":8080"}
-{"level":"INFO","ts":"2022-09-13 16:24:31","file":"log/log.go:64","msg":"test","key":"value"}
-{"level":"INFO","ts":"2022-09-13 17:39:24","file":"log/log.go:64","msg":"get addr","addr":":8080"}
-{"level":"INFO","ts":"2022-09-13 17:41:18","file":"log/log.go:64","msg":"Start to listening the incoming request on http address: %s","addr":":8080"}
-{"level":"INFO","ts":"2022-09-13 17:42:27","file":"log/log.go:64","msg":"Shutting down server..."}
-{"level":"INFO","ts":"2022-09-13 17:42:27","file":"log/log.go:64","msg":"get addr","addr":":8080"}
