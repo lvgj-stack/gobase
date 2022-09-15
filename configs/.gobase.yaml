@@ -3,7 +3,7 @@ Addr: :8080                  # HTTP绑定端口
 
 # MySQL 数据库相关配置
 Database:
-  Host: 127.0.0.1:3306 # MySQL 机器 ip 和端口，默认 127.0.0.1:3306
+  Host: 192.168.2.185:3306 # MySQL 机器 ip 和端口，默认 127.0.0.1:3306
   Username: root # MySQL 用户名(建议授权最小权限集)
   Password:  # MySQL 用户密码
   DatabaseName: goserver # goserver 系统所用的数据库名
