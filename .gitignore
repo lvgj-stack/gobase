@@ -9,7 +9,7 @@ configs/.*.yaml
 *.exe~
 *.dll
 *.so
-*.dyli
+*.dylib
 
 # Test binary, built with `go test -c`
 *.test
@@ -33,4 +33,4 @@ main
 __pycache__/
 debug/
 
-_output
+_output/
