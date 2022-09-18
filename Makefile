@@ -25,4 +25,4 @@ format: tools.verify.golines tools.verify.goimports
 
 .PHONY: build
 build:
-	@$(MAKE) go.build:
+	@$(MAKE) go.build
