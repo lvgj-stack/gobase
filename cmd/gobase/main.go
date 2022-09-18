@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"net/http"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 
