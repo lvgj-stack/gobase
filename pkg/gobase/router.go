@@ -1,17 +1,14 @@
 package gobase
 
 import (
-	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
-	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
 	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
-	"github.com/Mr-LvGJ/gobase/pkg/common/token"
-
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/middleware"
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/user"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
 )
