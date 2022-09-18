@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"net/http"
 
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
@@ -27,6 +28,7 @@ func main() {
 		}()
 	}
 	setting.InitConfig(*configPath)
+	token.Init(setting.C().Jwt.Key, setting.C().Jwt.IdentityKey)
 	if _, err := store.Setup(); err != nil {
 		log.Error("database init fail", "err", err)
 	}

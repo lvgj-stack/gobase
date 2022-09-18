@@ -11,3 +11,7 @@ Database:
   MaxOpenConns: 100 # MySQL 最大打开的连接数，默认 100
   ConnMaxLifetime: 10s # 空闲连接最大存活时间，默认 10s
   LoggerLevel: 4 # GORM log level, 1: silent, 2:error, 3:warn, 4:info
+
+Jwt:
+  Key: lvgjccccg
+  IdentityKey: lvgjccccg
