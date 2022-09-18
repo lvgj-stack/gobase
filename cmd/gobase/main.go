@@ -2,14 +2,12 @@ package main
 
 import (
 	"flag"
-	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"net/http"
-
-	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
 )
 

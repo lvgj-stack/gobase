@@ -11,10 +11,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase"
-	"github.com/gin-gonic/gin"
 )
 
 func Run() error {
