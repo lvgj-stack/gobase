@@ -1,6 +1,8 @@
 package gobase
 
 import (
+	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 

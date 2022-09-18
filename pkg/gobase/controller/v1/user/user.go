@@ -10,6 +10,7 @@ import (
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
+	"github.com/gin-gonic/gin"
 
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
