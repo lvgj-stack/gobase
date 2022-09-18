@@ -5,6 +5,8 @@ import (
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"net/http"
 
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
+
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/setting"

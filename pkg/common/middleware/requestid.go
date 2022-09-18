@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
 )
 
 // RequestID is a middleware that injects a 'X-Request-ID' into the context and request/response header of each request.

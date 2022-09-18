@@ -7,9 +7,11 @@ import (
 	"github.com/Mr-LvGJ/gobase/pkg/common/util/gormutil"
 	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 
-	"gorm.io/gorm"
-
+	"github.com/Mr-LvGJ/gobase/pkg/common/fields"
+	"github.com/Mr-LvGJ/gobase/pkg/common/util/gormutil"
+	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
+	"gorm.io/gorm"
 )
 
 type users struct {

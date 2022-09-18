@@ -1,6 +1,8 @@
 package user
 
 import (
+	"github.com/gin-gonic/gin"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/auth"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"

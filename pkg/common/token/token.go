@@ -3,11 +3,17 @@ package token
 import (
 	"errors"
 	"fmt"
+	"sync"
+	"time"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"sync"
-	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 )
 
 type Config struct {
