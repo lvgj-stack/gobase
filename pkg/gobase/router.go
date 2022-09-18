@@ -1,6 +1,8 @@
 package gobase
 
 import (
+	"github.com/Mr-LvGJ/gobase/pkg/common/constant"
+	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
@@ -44,8 +46,26 @@ func installController(g *gin.Engine) {
 	{
 		userv1 := v1.Group("/users")
 		{
+			userv1.POST("", userController.Create)
+			userv1.Use(authMiddleware())
+			userv1.GET("", userController.List)
 			userv1.GET(":name", userController.Get)
+
 		}
+	}
+
+}
+
+func authMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		username, err := token.ParseRequest(c)
+		if err != nil {
+			core.WriteResponse(c, errno.ErrToken, nil)
+			c.Abort()
+			return
+		}
+		c.Set(constant.XUsernameKey, username)
+		c.Next()
 	}
 
 }

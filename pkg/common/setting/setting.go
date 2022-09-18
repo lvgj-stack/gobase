@@ -17,7 +17,14 @@ type Config struct {
 	RunMode  string         `yaml:"RunMode"`
 	Addr     string         `yaml:"Addr"`
 	Database DatabaseConfig `yaml:"Database"`
+	Jwt      JwtConfig      `yaml:"Jwt"`
 }
+
+type JwtConfig struct {
+	Key         string `yaml:"Key"`
+	IdentityKey string `json:"IdentityKey"`
+}
+
 type DatabaseConfig struct {
 	Host            string
 	Username        string

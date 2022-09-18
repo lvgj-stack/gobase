@@ -1,7 +1,11 @@
 package token
 
 import (
+	"errors"
+	"fmt"
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 	"sync"
 	"time"
 )
@@ -13,7 +17,7 @@ type Config struct {
 
 var (
 	config = Config{"Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5", "identityKey"}
-	once sync.Once
+	once   sync.Once
 )
 
 func Sign(identityKey string) (tokenString string, err error) {
@@ -29,4 +33,53 @@ func Sign(identityKey string) (tokenString string, err error) {
 
 	return signedString, err
 
+}
+
+func ParseRequest(c *gin.Context) (string, error) {
+	header := c.Request.Header.Get("Authorization")
+	if len(header) == 0 {
+		return "", errors.New("the length of the `Authorization` header is zero")
+	}
+
+	var t string
+
+	fmt.Sscanf(header, "Bearer %s", &t)
+	log.Info(t)
+	return Parse(t, config.key)
+}
+
+func secretFunc(secret string) jwt.Keyfunc {
+	return func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrSignatureInvalid
+		}
+		return []byte(secret), nil
+	}
+
+}
+
+func Parse(tokenString string, secret string) (string, error) {
+	token, err := jwt.Parse(tokenString, secretFunc(secret))
+	var identityKey string
+
+	if err != nil {
+		return "", err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		identityKey = claims[config.identityKey].(string)
+	}
+	return identityKey, nil
+
+}
+
+func Init(key string, identityKey string) {
+	once.Do(func() {
+		if key != "" {
+			config.key = key
+		}
+		if identityKey != "" {
+			config.identityKey = identityKey
+		}
+	})
 }
