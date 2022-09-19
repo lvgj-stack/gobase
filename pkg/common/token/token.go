@@ -3,9 +3,10 @@ package token
 import (
 	"errors"
 	"fmt"
-	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"sync"
 	"time"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

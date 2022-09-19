@@ -24,7 +24,7 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/marmotedu/goserver/internal/pkg/log"
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 )
 
 func Test_WithName(t *testing.T) {
