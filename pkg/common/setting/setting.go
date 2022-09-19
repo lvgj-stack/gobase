@@ -2,12 +2,13 @@ package setting
 
 import (
 	"fmt"
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"os"
 	"strings"
 	"sync/atomic"
 	"time"
 	"unsafe"
+
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 
 	"github.com/spf13/viper"
 )

@@ -7,11 +7,12 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/gin-gonic/gin"
+	"github.com/willf/pad"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
-	"github.com/gin-gonic/gin"
-	"github.com/willf/pad"
 )
 
 type bodyLogWriter struct {
