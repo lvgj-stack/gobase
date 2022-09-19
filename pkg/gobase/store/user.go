@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
+	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/fields"
 	"github.com/Mr-LvGJ/gobase/pkg/common/util/gormutil"
 	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
-
 	"gorm.io/gorm"
 )
 
@@ -26,13 +26,15 @@ func (u *users) Create(ctx context.Context, user *v1.User) error {
 }
 
 func (u *users) Update(ctx context.Context, user *v1.User) error {
-	//TODO implement me
-	panic("implement me")
+	return u.db.Save(user).Error
 }
 
 func (u *users) Delete(ctx context.Context, username string) error {
-	//TODO implement me
-	panic("implement me")
+	err := u.db.Where("username = ?", username).Delete(&v1.User{}).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return errno.ErrUserNotFound
+	}
+	return nil
 }
 
 func (u *users) Get(ctx context.Context, username string) (*v1.User, error) {

@@ -111,3 +111,46 @@ func (u *UserController) List(c *gin.Context) {
 
 	core.WriteResponse(c, nil, users)
 }
+
+func (u *UserController) Update(c *gin.Context) {
+	log.Info("update user info func called.", c.Request)
+	var r UpdateRequest
+
+	if err := c.ShouldBindJSON(&r); err != nil {
+		core.WriteResponse(c, errno.ErrBind, nil)
+		return
+	}
+
+	user, err := u.srv.Users().Get(c, c.Param("name"))
+	if err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+
+	if r.Nickname != nil {
+		user.NickName = *r.Nickname
+	}
+
+	if r.Email != nil {
+		user.Email = *r.Email
+	}
+
+	if err = u.srv.Users().Update(c, user); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+
+	core.WriteResponse(c, nil, user)
+
+}
+
+func (u *UserController) Delete(c *gin.Context) {
+	log.Info("deleted func called.", c.Request)
+
+	if err := u.srv.Users().Delete(c, c.Param("name")); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+
+	core.WriteResponse(c, nil, errno.OK)
+}

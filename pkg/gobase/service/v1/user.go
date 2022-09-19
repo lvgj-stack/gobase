@@ -33,13 +33,11 @@ func (u *userService) Create(ctx context.Context, user *v1.User) error {
 }
 
 func (u *userService) Update(ctx context.Context, user *v1.User) error {
-	//TODO implement me
-	panic("implement me")
+	return u.store.Users().Update(ctx, user)
 }
 
 func (u *userService) Delete(ctx context.Context, username string) error {
-	//TODO implement me
-	panic("implement me")
+	return u.store.Users().Delete(ctx, username)
 }
 
 func (u *userService) Get(ctx context.Context, username string) (*v1.User, error) {

@@ -23,6 +23,7 @@ func installMiddleware(g *gin.Engine, mw ...gin.HandlerFunc) {
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Options)
 	g.Use(middleware.Secure)
+	g.Use(middleware.Logging())
 	g.Use(middleware.RequestID())
 }
 
@@ -48,6 +49,8 @@ func installController(g *gin.Engine) {
 		{
 			userv1.POST("", userController.Create)
 			userv1.Use(authMiddleware())
+			userv1.DELETE(":name", userController.Delete)
+			userv1.PUT(":name", userController.Update)
 			userv1.GET("", userController.List)
 			userv1.GET(":name", userController.Get)
 
