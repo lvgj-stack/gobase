@@ -3,13 +3,12 @@ package token
 import (
 	"errors"
 	"fmt"
+	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"sync"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 )
 
 type Config struct {
@@ -46,7 +45,6 @@ func ParseRequest(c *gin.Context) (string, error) {
 	var t string
 
 	fmt.Sscanf(header, "Bearer %s", &t)
-	log.Info(t)
 	return Parse(t, config.key)
 }
 
@@ -70,6 +68,8 @@ func Parse(tokenString string, secret string) (string, error) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		identityKey = claims[config.identityKey].(string)
+	} else {
+		return "", errno.ErrToken
 	}
 	return identityKey, nil
 

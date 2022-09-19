@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"net/http"
+	_ "net/http/pprof"
 
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
 	"github.com/Mr-LvGJ/gobase/pkg/common/log"
@@ -28,6 +29,8 @@ func main() {
 		}()
 	}
 	setting.InitConfig(*configPath)
+	log.Init(&setting.C().Log)
+	log.Flush()
 	token.Init(setting.C().Jwt.Key, setting.C().Jwt.IdentityKey)
 	if _, err := store.Setup(); err != nil {
 		log.Error("database init fail", "err", err)

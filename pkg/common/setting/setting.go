@@ -2,6 +2,7 @@ package setting
 
 import (
 	"fmt"
+	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"os"
 	"strings"
 	"sync/atomic"
@@ -18,11 +19,12 @@ type Config struct {
 	Addr     string         `yaml:"Addr"`
 	Database DatabaseConfig `yaml:"Database"`
 	Jwt      JwtConfig      `yaml:"Jwt"`
+	Log      log.Options    `yaml:"Log"`
 }
 
 type JwtConfig struct {
 	Key         string `yaml:"Key"`
-	IdentityKey string `json:"IdentityKey"`
+	IdentityKey string `yaml:"IdentityKey"`
 }
 
 type DatabaseConfig struct {
