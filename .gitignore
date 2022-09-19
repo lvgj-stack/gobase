@@ -1,9 +1,6 @@
 info.log
 error.log
 
-configs/.*.yaml
-
-
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -34,3 +31,4 @@ __pycache__/
 debug/
 
 _output/
+configs/.gobase.yaml
