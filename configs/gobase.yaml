@@ -18,11 +18,11 @@ Jwt:
 
 Log:
   Development: true
-  Name: goserver
+  Name: gobase
   DisableCaller: false # 是否开启 caller，如果开启会在日志中显示调用日志所在的文件、函数和行号
   DisableStacktrace: false # 是否再panic及以上级别禁止打印堆栈信息
-  EnableColor: true # 是否开启颜色输出，true:是，false:否
+  EnableColor: false # 是否开启颜色输出，true:是，false:否
   Level: debug # debug, info, warn, error, dpanic, panic, fatal
   Format: console # console, json
-  OutputPaths: [/tmp/goserver.log, stdout] # 多个输出，用 `逗号+空格` 分开。stdout：标准输出，
+  OutputPaths: [./info.log, stdout] # 多个输出，用 `逗号+空格` 分开。stdout：标准输出，
   ErrorOutputPaths: [stderr] # zap内部(非业务)错误日志输出路径，多个输出，逗号分开

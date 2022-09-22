@@ -7,6 +7,8 @@ const (
 	HISTORYTODAY
 )
 
+type MsgController struct {
+}
 type WeatherResp struct {
 	Status    string
 	Count     int

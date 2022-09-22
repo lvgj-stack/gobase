@@ -9,6 +9,7 @@ import (
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/middleware"
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
+	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/msg"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/user"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
 )
@@ -38,6 +39,7 @@ func installController(g *gin.Engine) {
 
 	dbClient := store.Client()
 	userController := user.NewUserController(dbClient)
+	msgController := msg.NewMsgController()
 
 	pprof.Register(g)
 
@@ -54,6 +56,10 @@ func installController(g *gin.Engine) {
 			userv1.GET("", userController.List)
 			userv1.GET(":name", userController.Get)
 
+		}
+		msgv1 := v1.Group("/msg")
+		{
+			msgv1.GET("", msgController.PushInfo)
 		}
 	}
 
