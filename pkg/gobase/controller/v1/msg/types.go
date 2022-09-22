@@ -69,3 +69,17 @@ type AstroToday struct {
 	Love       int
 	Health     int
 }
+
+type XiaoHua struct {
+	Status int
+	Msg    string
+	Result XiaoHuaRes
+}
+
+type XiaoHuaRes struct {
+	List []XiaoHuaContent
+}
+
+type XiaoHuaContent struct {
+	Content string
+}

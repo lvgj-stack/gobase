@@ -2,7 +2,6 @@ package msg
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -17,12 +16,9 @@ const (
 var (
 	weather       = &WeatherResp{}
 	constellation = &Constellation{}
+	xiaoHua       = &XiaoHua{}
 	tmp           = make(map[string]interface{})
 )
-
-func main() {
-	get(weatherUrl, WEATHER)
-}
 
 func get(url string, typ int) error {
 
@@ -41,9 +37,10 @@ func get(url string, typ int) error {
 		json.Unmarshal(body, weather)
 	case XINZUO:
 		json.Unmarshal(body, constellation)
+	case XIAOHUA:
+		json.Unmarshal(body, xiaoHua)
 	default:
 		json.Unmarshal(body, tmp)
 	}
-	fmt.Println(string(body))
 	return nil
 }
