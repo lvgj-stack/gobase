@@ -5,6 +5,7 @@ const (
 	XINZUO
 	XIAOHUA
 	HISTORYTODAY
+	MEIRIYIJU
 )
 
 type MsgController struct {
@@ -83,5 +84,9 @@ type XiaoHuaRes struct {
 }
 
 type XiaoHuaContent struct {
+	Content string
+}
+
+type EachDayContent struct {
 	Content string
 }

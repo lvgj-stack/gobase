@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func TestGetWeather(t *testing.T) {
@@ -18,7 +20,7 @@ func TestGetWeather(t *testing.T) {
 }
 
 func TestPostMsg(t *testing.T) {
-	NewMsgController().PushInfo()
+	NewMsgController().PushInfo(&gin.Context{})
 
 }
 
@@ -27,5 +29,20 @@ func TestTmp(t *testing.T) {
 	monthInt := time.Now().Month()
 	dayInt := time.Now().Day()
 	t.Log(fmt.Sprintf(`今天是：%v 年 %v 月 %v 日，星期%v `, yearInt, int(monthInt), dayInt, int(time.Now().Weekday())))
+
+}
+
+func TestTimeDiff(t *testing.T) {
+	timeStart := "2022-01-20 15:04:05"
+	beginTime, _ := time.Parse(TIME_LAYOUT, timeStart)
+
+	i := SubDays(beginTime)
+	t.Log(i)
+
+}
+
+func TestEachDayContent(t *testing.T) {
+	get(eachDayASeq, MEIRIYIJU)
+	t.Log(eachDayContent.Content)
 
 }
