@@ -73,7 +73,7 @@ func get(url string, typ int) error {
 
 func (m *MsgController) PushInfo(c *gin.Context) {
 	jsonStr := strings.NewReader(generateTodayMsg())
-	resp, err := http.Post(feishuUrlTest, "application/json", jsonStr)
+	resp, err := http.Post(feishuUrl, "application/json", jsonStr)
 	defer resp.Body.Close()
 
 	if err != nil {
@@ -94,6 +94,7 @@ func generateTodayMsg() string {
 	get(weatherUrl, WEATHER)
 	get(xinZuoUrl, XINZUO)
 	get(xiaoHuaUrl, XIAOHUA)
+	get(eachDayASeq, MEIRIYIJU)
 
 	yearInt := time.Now().Year()
 	monthInt := time.Now().Month()
@@ -139,7 +140,7 @@ func generateTodayMsg() string {
 				{
 				  "tag": "div",
 				  "text": {
-					"content": "\"*%v*\"\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#45;&#45;&#45;&#45; <font color='grey'> 💕 * From LvGJ & Miss U ~* 💕</font>",
+					"content": "\"* %v *\"\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#45;&#45;&#45;&#45; <font color='grey'> 💕 * From LvGJ & Miss U ~* 💕</font>",
 					"tag": "lark_md"
 				  }
 				}
