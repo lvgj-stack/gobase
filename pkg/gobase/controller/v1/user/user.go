@@ -3,12 +3,12 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 
+	"github.com/Mr-LvGJ/jota/log"
+
 	"github.com/Mr-LvGJ/gobase/pkg/common/auth"
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
-	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
 	srvv1 "github.com/Mr-LvGJ/gobase/pkg/gobase/service/v1"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
@@ -25,7 +25,7 @@ func NewUserController(store store.Factory) *UserController {
 }
 
 func (u *UserController) Get(c *gin.Context) {
-	log.Info("get user function called.")
+	log.Info(c, "get user function called.")
 	user, err := u.srv.Users().Get(c, c.Param("name"))
 	if err != nil {
 		core.WriteResponse(c, err, nil)
@@ -43,7 +43,7 @@ func (u *UserController) Login(c *gin.Context) {
 
 		return
 	}
-	log.Info("LoginRequest", "request", r, "username", r.Username)
+	log.Info(c, "LoginRequest", "request", r, "username", r.Username)
 
 	user, err := u.srv.Users().Get(c, r.Username)
 	if err != nil {
@@ -69,7 +69,7 @@ func (u *UserController) Login(c *gin.Context) {
 }
 
 func (u *UserController) Create(c *gin.Context) {
-	log.Info("user create func called", c.Request)
+	log.Info(c, "user create func called", c.Request)
 	var r v1.User
 
 	if err := c.ShouldBindJSON(&r); err != nil {
@@ -92,28 +92,27 @@ func (u *UserController) Create(c *gin.Context) {
 		core.WriteResponse(c, err, nil)
 		return
 	}
-	core.WriteResponse(c, nil, r)
+	core.WriteResponse(c, errno.OK, r)
 }
 
 func (u *UserController) List(c *gin.Context) {
-	log.Info("list user func called.")
-	var r metav1.ListOptions
-	if err := c.ShouldBindQuery(&r); err != nil {
-		core.WriteResponse(c, errno.ErrBind, nil)
-		return
-	}
+	log.Info(c, "list user func called.")
+	//if err := c.ShouldBindQuery(&r); err != nil {
+	//	core.WriteResponse(c, errno.ErrBind, nil)
+	//	return
+	//}
+	//
+	//users, err := u.srv.Users().List(c, r)
+	//if err != nil {
+	//	core.WriteResponse(c, err, nil)
+	//	return
+	//}
 
-	users, err := u.srv.Users().List(c, r)
-	if err != nil {
-		core.WriteResponse(c, err, nil)
-		return
-	}
-
-	core.WriteResponse(c, nil, users)
+	core.WriteResponse(c, nil, nil)
 }
 
 func (u *UserController) Update(c *gin.Context) {
-	log.Info("update user info func called.", c.Request)
+	log.Info(c, "update user info func called.", c.Request)
 	var r UpdateRequest
 
 	if err := c.ShouldBindJSON(&r); err != nil {
@@ -145,7 +144,7 @@ func (u *UserController) Update(c *gin.Context) {
 }
 
 func (u *UserController) Delete(c *gin.Context) {
-	log.Info("deleted func called.", c.Request)
+	log.Info(c, "deleted func called.", c.Request)
 
 	if err := u.srv.Users().Delete(c, c.Param("name")); err != nil {
 		core.WriteResponse(c, err, nil)

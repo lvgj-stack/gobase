@@ -8,10 +8,11 @@ import (
 	"github.com/Mr-LvGJ/gobase/pkg/common/core"
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
 	"github.com/Mr-LvGJ/gobase/pkg/common/middleware"
+	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
-	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/msg"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/controller/v1/user"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
+	"github.com/Mr-LvGJ/jota/access_log"
 )
 
 func LoadRouter(g *gin.Engine) {
@@ -24,45 +25,33 @@ func installMiddleware(g *gin.Engine, mw ...gin.HandlerFunc) {
 	g.Use(middleware.NoCache)
 	g.Use(middleware.Options)
 	g.Use(middleware.Secure)
-	g.Use(middleware.Logging())
 	g.Use(middleware.RequestID())
+	g.Use(access_log.GinAccessLogInterceptor(access_log.WithLogConfig(setting.C().AccessLog)))
 }
 
 func installController(g *gin.Engine) {
 	g.NoRoute(func(c *gin.Context) {
 		core.WriteResponse(c, errno.InternalServerError, nil)
 	})
-
 	g.GET("/healthz", func(c *gin.Context) {
 		core.WriteResponse(c, nil, map[string]string{"status": "ok"})
 	})
-
 	dbClient := store.Client()
 	userController := user.NewUserController(dbClient)
-	msgController := msg.NewMsgController()
-
 	pprof.Register(g)
-
 	g.POST("/login", userController.Login)
-
 	v1 := g.Group("/v1")
 	{
-		userv1 := v1.Group("/users")
+		userV1 := v1.Group("/users")
 		{
-			userv1.POST("", userController.Create)
-			userv1.Use(authMiddleware())
-			userv1.DELETE(":name", userController.Delete)
-			userv1.PUT(":name", userController.Update)
-			userv1.GET("", userController.List)
-			userv1.GET(":name", userController.Get)
-
-		}
-		msgv1 := v1.Group("/msg")
-		{
-			msgv1.GET("", msgController.PushInfo)
+			userV1.POST("", userController.Create)
+			userV1.Use(authMiddleware())
+			userV1.DELETE(":name", userController.Delete)
+			userV1.PUT(":name", userController.Update)
+			userV1.GET("", userController.List)
+			userV1.GET(":name", userController.Get)
 		}
 	}
-
 }
 
 func authMiddleware() gin.HandlerFunc {
@@ -76,5 +65,4 @@ func authMiddleware() gin.HandlerFunc {
 		c.Set(constant.XUsernameKey, username)
 		c.Next()
 	}
-
 }

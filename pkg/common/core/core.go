@@ -34,9 +34,7 @@ func WriteResponse(c *gin.Context, err error, data interface{}) {
 			Code:    code,
 			Message: message,
 		})
-
 		return
 	}
-
 	c.JSON(http.StatusOK, data)
 }

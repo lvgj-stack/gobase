@@ -3,12 +3,11 @@ package setting
 import (
 	"fmt"
 	"os"
-	"strings"
 	"sync/atomic"
-	"time"
 	"unsafe"
 
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
+	"github.com/Mr-LvGJ/jota/log"
+	"github.com/Mr-LvGJ/jota/models"
 
 	"github.com/spf13/viper"
 )
@@ -16,27 +15,17 @@ import (
 var gConfig = unsafe.Pointer(&Config{})
 
 type Config struct {
-	RunMode  string         `yaml:"RunMode"`
-	Addr     string         `yaml:"Addr"`
-	Database DatabaseConfig `yaml:"Database"`
-	Jwt      JwtConfig      `yaml:"Jwt"`
-	Log      log.Options    `yaml:"Log"`
+	RunMode   string                 `yaml:"RunMode"  default:"debug"`
+	Addr      string                 `yaml:"Addr"     default:"addr"`
+	Database  *models.DatabaseConfig `yaml:"Database"`
+	Jwt       JwtConfig              `yaml:"Jwt"`
+	Log       *log.Config            `yaml:"Log"`
+	AccessLog *log.Config            `yaml:"AccessLog"`
 }
 
 type JwtConfig struct {
 	Key         string `yaml:"Key"`
 	IdentityKey string `yaml:"IdentityKey"`
-}
-
-type DatabaseConfig struct {
-	Host            string
-	Username        string
-	Password        string
-	DatabaseName    string
-	MaxIdleConns    int
-	MaxOpenConns    int
-	ConnMaxLifetime time.Duration
-	LoggerLevel     int
 }
 
 func C() *Config {
@@ -46,11 +35,7 @@ func C() *Config {
 func InitConfig(configFile string) {
 	viper.SetConfigFile(configFile)
 	viper.SetConfigType("yaml")
-	viper.AutomaticEnv()           // 读取匹配的环境变量
-	viper.SetEnvPrefix("GOSERVER") // 读取环境变量的前缀为APISERVER
-	replacer := strings.NewReplacer(".", "_")
-	viper.SetEnvKeyReplacer(replacer)
-
+	viper.AutomaticEnv() // 读取匹配的环境变量
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}

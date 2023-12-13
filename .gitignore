@@ -32,3 +32,4 @@ debug/
 
 _output/
 configs/.gobase.yaml
+configs/dev.gobase.yaml

@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"net/http"
 	_ "net/http/pprof"
 
+	"github.com/Mr-LvGJ/jota/log"
+
 	"github.com/Mr-LvGJ/gobase/cmd/gobase/bootstrap"
-	"github.com/Mr-LvGJ/gobase/pkg/common/log"
 	"github.com/Mr-LvGJ/gobase/pkg/common/setting"
 	"github.com/Mr-LvGJ/gobase/pkg/common/token"
 	"github.com/Mr-LvGJ/gobase/pkg/gobase/store"
@@ -19,22 +21,23 @@ var (
 )
 
 func main() {
+	ctx := context.Background()
 	flag.Parse()
-
 	if pprofAddr != nil && len(*pprofAddr) > 0 {
 		go func() {
 			if err := http.ListenAndServe(*pprofAddr, nil); err != nil {
-				log.Info("fail to start pprof", "err:", err)
+				log.Info(ctx, "fail to start pprof", "err:", err)
 			}
 		}()
 	}
 	setting.InitConfig(*configPath)
-	log.Init(&setting.C().Log)
-	log.Flush()
-	token.Init(setting.C().Jwt.Key, setting.C().Jwt.IdentityKey)
-	if _, err := store.Setup(); err != nil {
-		log.Error("database init fail", "err", err)
+	if err := log.NewGlobal(setting.C().Log); err != nil {
+		panic(err)
 	}
-	bootstrap.Run()
-	log.Info("get addr", "addr", setting.C().Addr)
+	token.Init(setting.C().Jwt.Key, setting.C().Jwt.IdentityKey)
+	if _, err := store.Setup(ctx); err != nil {
+		log.Error(ctx, "database init fail", "err", err)
+	}
+	bootstrap.Run(ctx)
+	log.Info(ctx, "get addr", "addr", setting.C().Addr)
 }

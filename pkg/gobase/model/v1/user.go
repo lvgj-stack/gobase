@@ -2,10 +2,12 @@ package v1
 
 import (
 	"github.com/go-playground/validator/v10"
+
+	"github.com/Mr-LvGJ/jota/models"
 )
 
 type User struct {
-	BaseModel
+	models.BaseModel
 
 	Username string `json:"username"           gorm:"column:username;not null" binding:"required" validate:"min=1,max=32"`
 	Password string `json:"password,omitempty" gorm:"column:password;not null" binding:"required" validate:"min=5,max=128"`

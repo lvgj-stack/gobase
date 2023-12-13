@@ -7,9 +7,6 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/Mr-LvGJ/gobase/pkg/common/errno"
-	"github.com/Mr-LvGJ/gobase/pkg/common/fields"
-	"github.com/Mr-LvGJ/gobase/pkg/common/util/gormutil"
-	metav1 "github.com/Mr-LvGJ/gobase/pkg/gobase/meta/v1"
 	v1 "github.com/Mr-LvGJ/gobase/pkg/gobase/model/v1"
 )
 
@@ -50,15 +47,15 @@ func (u *users) Get(ctx context.Context, username string) (*v1.User, error) {
 	return user, nil
 }
 
-func (u *users) List(ctx context.Context, options metav1.ListOptions) (*v1.UserList, error) {
+func (u *users) List(ctx context.Context) (*v1.UserList, error) {
 	ret := &v1.UserList{}
-	ol := gormutil.Unpointer(options.Limit, options.Offset)
-	selector, _ := fields.ParseSelector(options.FieldSelector)
-	username, _ := selector.RequiresExactMatch("username")
-	d := u.db.Where("username like ?", "%"+username+"%").
-		Offset(ol.Offset).
-		Limit(ol.Limit).
-		Order("id desc").
-		Find(&ret.Items)
-	return ret, d.Error
+	//ol := gormutil.Unpointer(options.Limit, options.Offset)
+	//selector, _ := fields.ParseSelector(options.FieldSelector)
+	//username, _ := selector.RequiresExactMatch("username")
+	//d := u.db.Where("username like ?", "%"+username+"%").
+	//	Offset(ol.Offset).
+	//	Limit(ol.Limit).
+	//	Order("id desc").
+	//	Find(&ret.Items)
+	return ret, nil
 }

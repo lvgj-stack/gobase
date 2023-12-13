@@ -3,26 +3,33 @@ Addr: :8080                  # HTTP绑定端口
 
 # MySQL 数据库相关配置
 Database:
-  Host: ${MARIADB_HOST} # MySQL 机器 ip 和端口，默认 127.0.0.1:3306
-  Username: ${MARIADB_USERNAME} # MySQL 用户名(建议授权最小权限集)
-  Password: ${MARIADB_PASSWORD} # MySQL 用户密码
-  DatabaseName: ${MARIADB_DATABASE} # goserver 系统所用的数据库名
-  MaxIdleConns: 100 # MySQL 最大空闲连接数，默认 100
-  MaxOpenConns: 100 # MySQL 最大打开的连接数，默认 100
-  ConnMaxLifetime: 10s # 空闲连接最大存活时间，默认 10s
-  LoggerLevel: 4 # GORM log level, 1: silent, 2:error, 3:warn, 4:info
+  User: root
+  Password:
+  Host:
+  Schema:
+  MaxIdleConns: 10
+  MaxOpenConns: 100
+  ConnMaxLifetime: 150
+  EnableLog:
 
 Jwt:
   Key: Key
   IdentityKey: identityKey
 
 Log:
-  Development: true
-  Name: gobase
-  DisableCaller: false # 是否开启 caller，如果开启会在日志中显示调用日志所在的文件、函数和行号
-  DisableStacktrace: false # 是否再panic及以上级别禁止打印堆栈信息
-  EnableColor: false # 是否开启颜色输出，true:是，false:否
-  Level: debug # debug, info, warn, error, dpanic, panic, fatal
-  Format: console # console, json
-  OutputPaths: [./info.log, stdout] # 多个输出，用 `逗号+空格` 分开。stdout：标准输出，
-  ErrorOutputPaths: [stderr] # zap内部(非业务)错误日志输出路径，多个输出，逗号分开
+  Level: INFO
+  MaxSize: 500
+  MaxBackups: 5
+  MaxAge: 7
+  Compress: true
+  Filename:
+
+AccessLog:
+  Level: INFO
+  MaxSize: 500
+  MaxBackups: 5
+  MaxAge: 7
+  Compress: true
+  Filename:
+  Structured: True
+  CallerSkip: 3
